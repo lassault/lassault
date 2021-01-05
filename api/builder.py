@@ -13,6 +13,7 @@ SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
 SPOTIFY_REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
 SPOTIFY_CACHE_FILE = os.getenv("SPOTIFY_CACHE_FILE")
+
 MYSQL_HOST = os.getenv("HOST")
 MYSQL_USER = os.getenv("MYSQL_USER")
 MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
@@ -126,23 +127,14 @@ def getMediaCardData(spotify):
         song = song["item"]
         barCount = 65
         contentBar = ""
-        for bar in range(barCount):
+        for _ in range(barCount):
             contentBar += "<div class='bar'></div>\n"
         barCSS = generateBars(barCount)
         track_id = song["id"]
         danceability, energy, valence = getSongFeatures(spotify, track_id)
     album_cover = getImage(song["album"]["images"][1]["url"])
     
-    '''
-    images_name = [
-        "media/wrapped.svg"
-    ]
-    images = ""
-    for image_name in images_name:
-        image = getCover(image_name)
-        images += "<img src='data:image/svg+xml;base64,{IMAGE}'></img>".format(IMAGE=getWrappedBadge(getWrapped()))
-    '''
-    images = "<img src='data:image/svg+xml;base64,{IMAGE}'></img>".format(IMAGE=getWrappedBadge(970))
+    images = "<img src='data:image/svg+xml;base64,{IMAGE}'></img>".format(IMAGE=getWrappedBadge(getWrapped()))
     artist = song["artists"][0]["name"].replace("&", "&amp;")
     track = song["name"].replace("&", "&amp;")
     link = song["external_urls"]["spotify"]
