@@ -12,6 +12,7 @@ import mysql.connector
 SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
 SPOTIFY_REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
+SPOTIFY_CACHE_FILE = os.getenv("SPOTIFY_CACHE_FILE")
 MYSQL_HOST = os.getenv("HOST")
 MYSQL_USER = os.getenv("MYSQL_USER")
 MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
@@ -179,7 +180,7 @@ def catch_all(path):
 
     mode = "light"
 
-    auth_manager = SpotifyOAuth(client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET, redirect_uri=SPOTIFY_REDIRECT_URI, scope='user-read-currently-playing user-read-recently-played')
+    auth_manager = SpotifyOAuth(client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET, redirect_uri=SPOTIFY_REDIRECT_URI, scope='user-read-currently-playing user-read-recently-played', cache_path=SPOTIFY_CACHE_FILE)
     spotify = spotipy.Spotify(auth_manager=auth_manager)
 
     about_title = "Fermín Lassa"
