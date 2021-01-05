@@ -1,10 +1,10 @@
 <div align="center">
-    <img src="https://webtipy.herokuapp.com">
+    <img src="https://lassa97.vercel.app/api/builder.py">
     <div style="display: inline-block;">
-        <a href="https://linkedin.com/in/fermin-lassa-iglesias" target="_blank"><img src="media/linkedin.svg"></a>
-        <a href="mailto:fermin@lassa.net" target="_blank"><img src="media/mail.svg"></a>
-        <a href="https://open.spotify.com/user/lassa97" target="_blank"><img src="media/spotify.svg"></a>
-        <a href="https://github.com/lassa97" target="_blank"><img src="media/github.svg"></a>
+        <a href="https://linkedin.com/in/fermin-lassa-iglesias" target="_blank"><img src="data/linkedin.svg"></a>
+        <a href="mailto:fermin@lassa.net" target="_blank"><img src="data/mail.svg"></a>
+        <a href="https://open.spotify.com/user/lassa97" target="_blank"><img src="data/spotify.svg"></a>
+        <a href="https://github.com/lassa97" target="_blank"><img src="data/github.svg"></a>
     </div>
 </div>
 <details>
