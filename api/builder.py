@@ -184,24 +184,24 @@ def catch_all(path):
 
     about_title = "Fermín Lassa"
     about_text = "I'm an IT student that ❤️ coding 👨‍💻 and beers 🍻"
-    about_cover = "../media/my_octocat.png"
+    about_cover = "data/my_octocat.png"
     about_images = [{'Coffees': 2, 'Beers': 3}]
 
     about_data = getBaseCardData(about_title, about_text, about_cover, about_images)
     about_card = makeCard("base_{MODE}.html.j2".format(MODE=mode), about_data)
 
     skills_title = "Skills"
-    skills_cover = "../media/skills.webp"
+    skills_cover = "data/skills.webp"
     skills_images = [
-        "../media/java.svg",
-        "../media/python.svg",
-        "../media/mysql.svg",
-        "../media/html.svg",
-        "../media/css.svg",
-        "../media/php.svg",
-        "../media/javascript.svg",
-        "../media/cpp.svg",
-        "../media/bash.svg"
+        "data/java.svg",
+        "data/python.svg",
+        "data/mysql.svg",
+        "data/html.svg",
+        "data/css.svg",
+        "data/php.svg",
+        "data/javascript.svg",
+        "data/cpp.svg",
+        "data/bash.svg"
     ]
 
     skills_data = getAltCardData(skills_title, skills_cover, skills_images)
@@ -212,8 +212,8 @@ def catch_all(path):
                         <br></br>
                         09/2015 - 06/2020
                      """
-    education_cover = "../media/upna.png"
-    education_images = ["../media/pamplona.svg"]
+    education_cover = "data/upna.png"
+    education_images = ["data/pamplona.svg"]
 
     education_data = getBaseCardData(education_title, education_text, education_cover, education_images)
     education_card = makeCard("base_{MODE}.html.j2".format(MODE=mode), education_data)
@@ -223,8 +223,8 @@ def catch_all(path):
                          <br></br>
                          09/2019 - 01/2020
                       """
-    experience_cover = "../media/livEvent_alt.jpg"
-    experience_images = ["../media/pamplona.svg"]
+    experience_cover = "data/livEvent_alt.jpg"
+    experience_images = ["data/pamplona.svg"]
 
     experience_data = getBaseCardData(experience_title, experience_text, experience_cover, experience_images)
     experience_card = makeCard("base_{MODE}.html.j2".format(MODE=mode), experience_data)
