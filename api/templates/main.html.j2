@@ -1,0 +1,88 @@
+<svg width="520" height="225" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <foreignObject width="520" height="225">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            <style>
+                #slider {
+                    width: 525px;
+                    height: 225px;
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .slider {
+                    width: 25%;
+                    height: 100%;
+                    float: left;
+                    position: relative;
+                    z-index: 1;
+                    overflow: hidden;
+                }
+
+                .slides {
+                    width: 500%;
+                    height: 100%;
+                    position: relative;
+                    animation: slide 30s infinite;
+                }
+
+                .slides img {
+                    width: 520px;
+                    height: 225px;
+                }
+
+                @keyframes slide {
+                    0%, 100% {
+                        margin-left: 0%;
+                    }
+                    15% {
+                        margin-left: 0%;
+                    }
+                    20% {
+                        margin-left: -100%;
+                    }
+                    35% {
+                        margin-left: -100%;
+                    }
+                    40% {
+                        margin-left: -200%;
+                    }
+                    55% {
+                        margin-left: -200%;
+                    }
+                    60% {
+                        margin-left: -300%;
+                    }
+                    75% {
+                        margin-left: -300%;
+                    }
+                    80% {
+                        margin-left: -400%;
+                    }
+                    95% {
+                        margin-left: -400%;
+                    }
+                }
+            </style>
+
+            <div id="slider">
+                <div class="slides">
+                    <a href="{{about_link}}" target="_blank">
+                        <img src="data:image/svg+xml;base64,{{about}}"></img>
+                    </a>
+                    <a href="{{skills_link}}" target="_blank">
+                        <img src="data:image/svg+xml;base64,{{skills}}"></img>
+                    </a>
+                    <a href="{{education_link}}" target="_blank">
+                        <img src="data:image/svg+xml;base64,{{education}}"></img>
+                    </a>
+                    <a href="{{experience_link}}" target="_blank">
+                        <img src="data:image/svg+xml;base64,{{experience}}"></img>
+                    </a>
+                    <a href="{{spotify_link}}" target="_blank">
+                        <img src="data:image/svg+xml;base64,{{spotify}}"></img>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </foreignObject>
+</svg>

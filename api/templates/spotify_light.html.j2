@@ -1,0 +1,123 @@
+<svg width="520" height="225" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <foreignObject width="520" height="225">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+            <style>
+
+                div {
+                    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+                }
+
+                .mycard {
+                    width: 500px;
+                    height: 200px;
+                    border-radius: 25px;
+                    border-style: solid;
+                    border-color: #393e46;
+                    background-color: #eeeeee;
+                    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                    transition: 0.3s;
+                }
+
+                .mycard:hover {
+                    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+                }
+
+                .mycard_img {
+                    margin-left: 25px;
+                    margin-right: 25px;
+                    margin-top: 25px;
+                    margin-bottom: 25px;
+                    width: 150px;
+                    height: 150px;
+                    background-size: cover !important;
+                    background-repeat: no-repeat !important;
+                    border-radius: 25px;
+                    position: relative;
+                }
+
+                .mycard_text {
+                    width: 290px;
+                    height: 150px;
+                    border-radius: 25px;
+                    position: relative;
+                    top: -180px;
+                    left: 190px;
+                }
+
+                .title {
+                    width: 290px;
+                    height: 30px;
+                    overflow: hidden;
+                    font-size: 24px;
+                    text-align: center;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    font-weight: bold;
+                    padding-top: 10px;
+                }
+
+                .text_alt {
+                    width: 290px;
+                    height: 30px;
+                    font-size: 20px;
+                    margin-top: 5px;
+                    text-align: center;
+                    margin-bottom: 5px;
+                }
+
+                .image {
+                    height: 50px;
+                    width: 290px;
+                    margin-top: 10px;
+                }
+
+                .image img {
+                    margin-left: 65px;
+                    margin-right: 65px;
+                    width: 160px;
+                }
+                
+                .bars {
+                    width: 260px;
+                    height: 30px;
+                    bottom: 0px;
+                    position: relative;
+                    margin: 0px 15px 0px 15px;
+                }
+
+                .bar {
+                    width: 3px;
+                    bottom: 0px;
+                    height: 3px;
+                    position: absolute;
+                    background: rgb({{danceability}}, {{energy}}, {{valence}});
+                    animation: sound 0ms -800ms linear infinite alternate;
+                    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                    transition: 0.3s;
+                }
+
+                @keyframes sound {
+                    0% {
+                        height: 3px;
+                        opacity: .35;
+                    }
+                    100% {
+                        height: 15px;
+                        opacity: 0.95;
+                    }
+                }
+                {{barCSS}}
+            </style>
+              
+            <div class="mycard">
+                <div class="mycard_img" style="background: url(data:image/png;base64,{{cover}}) center;"></div>
+                <div class="mycard_text">
+                    <div class="title">{{title}}</div>
+                    <div class="text_alt">{{text}}</div>
+                    <div class="bars">{{contentBar}}</div>
+                    <div class="image">{{images}}</div>
+                </div>
+            </div>
+        </div>
+    </foreignObject>
+</svg>
