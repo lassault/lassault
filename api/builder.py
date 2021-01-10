@@ -133,8 +133,9 @@ def getMediaCardData(spotify):
         track_id = song["id"]
         danceability, energy, valence = getSongFeatures(spotify, track_id)
     album_cover = getImage(song["album"]["images"][1]["url"])
-    
-    images = "<img src='data:image/svg+xml;base64,{IMAGE}'></img>".format(IMAGE=getWrappedBadge(getWrapped()))
+   
+    images = "<img src='data:image/svg+xml;base64,{IMAGE}'></img>".format(IMAGE=getWrappedBadge(2040))
+    #images = "<img src='data:image/svg+xml;base64,{IMAGE}'></img>".format(IMAGE=getWrappedBadge(getWrapped()))
     artist = song["artists"][0]["name"].replace("&", "&amp;")
     track = song["name"].replace("&", "&amp;")
     link = song["external_urls"]["spotify"]
@@ -178,7 +179,7 @@ def catch_all(path):
     about_title = "Fermín Lassa"
     about_text = "I'm an IT student that ❤️ coding 👨‍💻 and beers 🍻"
     about_cover = "data/my_octocat.png"
-    about_images = [{'Coffees': 2, 'Beers': 3}]
+    about_images = [{'Coffees': 3, 'Beers': 7}]
 
     about_data = getBaseCardData(about_title, about_text, about_cover, about_images)
     about_card = makeCard("base_{MODE}.html.j2".format(MODE=mode), about_data)
