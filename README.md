@@ -12,7 +12,7 @@
 <details>
     <summary>References</summary>
     <ul>
-        <li>Spotify card inspired by: <a href="https://github.com/novatorem/novatorem" target="_blank">novatorem</a> & <a href="https://github.com/andyruwruw/andyruwruw" target="_blank">andyruwruw</a></li>
-        <li>Skills image: <a href="https://dribbble.com/shots/11205741-Learning-Tech" target="_blank">Learning Tech</a> from <a href="https://dribbble.com/tannerwayment" target="_blank">Tanner Wayment</a></li>
+        <li>Spotify card inspired by: <kbd><a href="https://github.com/novatorem/novatorem" target="_blank">novatorem</a></kbd> & <kbd><a href="https://github.com/andyruwruw/andyruwruw" target="_blank">andyruwruw</a></kbd></li>
+        <li>Skills image: <kbd><a href="https://dribbble.com/shots/11205741-Learning-Tech" target="_blank">Learning Tech</a></kbd> from <kbd><a href="https://dribbble.com/tannerwayment" target="_blank">Tanner Wayment</a></kbd></li>
     </ul>
 </details>
