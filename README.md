@@ -3,9 +3,9 @@
     <div style="display: inline-block;">
         <code>
             <a href="https://linkedin.com/in/fermin-lassa-iglesias" target="_blank"><img src="data/linkedin.svg"></a>
-            <a href="mailto:fermin@lassa.net" target="_blank"><img src="data/mail.svg"></a>
-            <a href="https://open.spotify.com/user/lassa97" target="_blank"><img src="data/spotify.svg"></a>
-            <a href="https://github.com/lassa97" target="_blank"><img src="data/github.svg"></a>
+            <a href="mailto:hello@example.com" target="_blank"><img src="data/mail.svg"></a>
+            <a href="https://open.spotify.com/user/lassault" target="_blank"><img src="data/spotify.svg"></a>
+            <a href="https://github.com/lassault" target="_blank"><img src="data/github.svg"></a>
         </code>
     </div>
 </div>
