@@ -17,8 +17,8 @@ from fontTools.ttLib import TTFont
 
 HERE = Path(__file__).parent
 W, H = 800, 300
-HOLD = 4.2      # seconds each slide stays still
-MOVE = 0.8      # seconds of sliding between slides
+HOLD = 4.8      # seconds each slide stays still
+MOVE = 1.0      # seconds of sliding between slides
 
 THEMES = {
     "light": dict(bg="#FFFFFF", stone="#F1F0EC", ink="#1A1A1A", text2="#3D3D39", muted="#5A5A55",
@@ -184,7 +184,7 @@ def build(theme: str) -> str:
 .slide {{ width: {W}px; height: {H}px; flex-shrink: 0; display: flex; }}
 .serif {{ font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; }}
 .frame {{ width: 340px; height: {H}px; flex-shrink: 0; background: {t['stone']}; display: flex; align-items: center; justify-content: center; }}
-.art {{ position: relative; width: 268px; height: 201px; border: 10px solid {t['mat']}; box-shadow: 0 16px 26px -16px {t['shadow']}; overflow: hidden; }}
+.art {{ position: relative; width: 268px; height: 201px; border: 10px solid {t['mat']}; border-radius: 14px; box-shadow: 0 16px 26px -16px {t['shadow']}; overflow: hidden; }}
 .art i, .art b {{ position: absolute; display: block; }}
 .shift {{ position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 13px; padding: 0 14%; }}
 .shift i {{ position: static !important; height: 18px; width: 70%; background: #FCB60C; }}
@@ -208,7 +208,7 @@ h2.serif {{ font-size: 40px; line-height: 1; }}
 .credit {{ font-size: 11px; color: {t['muted']}; }}
 .entrance-frame .ping {{ width: 220px; height: auto; }}
 .placard-frame {{ padding: 30px; }}
-.placard {{ width: 100%; height: 100%; border: 1.5px solid {t['ink']}; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; }}
+.placard {{ width: 100%; height: 100%; border: 1.5px solid {t['ink']}; border-radius: 14px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; }}
 .eyebrow {{ font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: {t['muted']}; }}
 .placard-title {{ font-size: 34px; line-height: 1.05; }}
 .materials {{ list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px 16px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 13px; font-weight: 500; }}
@@ -216,7 +216,7 @@ h2.serif {{ font-size: 40px; line-height: 1; }}
 .exit-frame {{ align-items: flex-end; }}
 .door-wrap {{ display: flex; flex-direction: column; align-items: center; gap: 8px; }}
 .sign {{ padding: 3px 9px; background: {t['ink']}; color: {t['wall']}; font-size: 10px; letter-spacing: .16em; }}
-.door-frame {{ position: relative; width: 112px; height: 190px; background: #10202F; border: 3px solid {t['ink']}; border-bottom: 0; }}
+.door-frame {{ position: relative; width: 112px; height: 190px; background: #10202F; border: 3px solid {t['ink']}; border-bottom: 0; border-radius: 14px 14px 0 0; overflow: hidden; }}
 .door {{ position: absolute; inset: 0; background: #D9D3C5; }}
 .door::before, .door::after {{ content: ""; position: absolute; left: 12px; right: 12px; border: 1.5px solid #B3AC9B; }}
 .door::before {{ top: 14px; height: 60px; }} .door::after {{ bottom: 14px; height: 80px; }}
