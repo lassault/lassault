@@ -13,6 +13,10 @@ run = "python3 build.py"
 description = "Run build and configuration tests"
 run = "python3 -m unittest discover -s tests -v"
 
+[tasks.check]
+description = "Check generated asset structure"
+run = "python3 scripts/check_generated.py"
+
 [tasks.preview]
 description = "Serve the generated profile locally"
 run = "python3 -m http.server 8000"

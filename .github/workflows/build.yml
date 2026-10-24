@@ -19,5 +19,4 @@ jobs:
       - run: mise run install
       - run: mise run build
       - run: mise run test
-      - name: Check generated assets are committed
-        run: git diff --exit-code -- profile-light.svg profile-dark.svg
+      - run: mise run check
