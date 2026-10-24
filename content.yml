@@ -1,0 +1,67 @@
+site:
+  collection: The Lassa Collection
+  name: Fermin Lassa
+  period: 2019 – today
+  role: DevOps engineer
+  location: Spain
+  url: https://fermin.lassa.es
+  email: fermin@lassa.es
+  visit_hours: Monday – Friday, 9:00 – 17:00 (UTC +1)
+  tagline: There is no Room 3.
+  intro: >-
+    An exhibition of systems built, broken and repaired by a DevOps engineer
+    in Spain. Most of the works still run. Some of them should not.
+  exit_note: There is no Room 3. Please do not try the door.
+
+materials:
+  - AWS
+  - GCP
+  - Terraform
+  - GitLab CI/CD
+  - GitHub Actions
+  - Docker
+  - Linux
+  - Rust
+  - Python
+  - Java
+
+slides:
+  - kind: entrance
+  - kind: work
+    art: shift
+    eyebrow: Room 1 · The day job
+    "no": Cat. 01
+    title: Shift Left
+    year: 2022 – today
+    medium: GitLab CI/CD, Docker, security scanners
+    text: >-
+      Security checks moved to the start of the release process, where problems
+      are cheap. Note how each bar has moved left.
+    note: Occasionally blocks a Friday deploy. This is considered a feature.
+    credit: Commissioned by Veridas, DevOps engineer since March 2022.
+  - kind: work
+    art: modules
+    eyebrow: Room 1 · The day job
+    "no": Cat. 02
+    title: Everything as Code
+    year: 2022 – today
+    medium: Terraform, AWS, a little GCP, pull requests
+    text: >-
+      Infrastructure that only changes through pull requests: lint, validate,
+      deploy. Reusable modules, checked by testing.
+    note: Manual changes in the cloud console are treated as vandalism.
+    credit: Commissioned by Veridas.
+  - kind: work
+    art: stars
+    eyebrow: Room 2 · The night shift
+    "no": Cat. 06
+    title: SpaceWar
+    year: 2019
+    medium: Java
+    text: >-
+      A space shooter. What hangs here is a portrait; the original is playable
+      online.
+    note: "Highest score, held by the artist: 2,147,483,647. Unverified."
+    credit: "Also on display: TLMgram, livEvent, 100tipy, OSniffy."
+  - kind: materials
+  - kind: exit

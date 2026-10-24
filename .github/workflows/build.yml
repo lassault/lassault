@@ -1,0 +1,24 @@
+name: Build profile
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: python -m pip install fonttools brotli pyyaml
+      - run: python build.py
+      - run: python -m unittest discover -s tests -v
+      - name: Check generated assets are committed
+        run: git diff --exit-code -- profile-light.svg profile-dark.svg

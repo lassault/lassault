@@ -3,8 +3,16 @@ python = "3.15"
 
 [tasks.install]
 description = "Install dependencies"
-run = "pip install fonttools brotli"
+run = "pip install fonttools brotli pyyaml"
 
 [tasks.build]
 description = "Build the SVG files"
 run = "python3 build.py"
+
+[tasks.test]
+description = "Run build and configuration tests"
+run = "python3 -m unittest discover -s tests -v"
+
+[tasks.preview]
+description = "Serve the generated profile locally"
+run = "python3 -m http.server 8000"

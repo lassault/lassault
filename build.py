@@ -5,13 +5,14 @@ A sliding walk through The Lassa Collection: each slide is a framed work and
 its wall label. Fonts are subset and embedded, because GitHub shows SVGs as
 images and images cannot load web fonts.
 
-    pip install fonttools brotli
+    pip install fonttools brotli pyyaml
     python3 build.py
 """
 import base64
 import io
 from pathlib import Path
 
+import yaml
 from fontTools import subset
 from fontTools.ttLib import TTFont
 
@@ -19,6 +20,7 @@ HERE = Path(__file__).parent
 W, H = 800, 300
 HOLD = 4.8      # seconds each slide stays still
 MOVE = 1.0      # seconds of sliding between slides
+CONTENT_FILE = HERE / "content.yml"
 
 THEMES = {
     "light": dict(bg="#FFFFFF", stone="#F1F0EC", ink="#1A1A1A", text2="#3D3D39", muted="#5A5A55",
@@ -46,52 +48,54 @@ ART = {
              + '<b class="ship"></b></div>',
 }
 
-SLIDES = [
-    dict(kind="entrance"),
-    dict(kind="work", art="shift", eyebrow="Room 1 · The day job", no="Cat. 01",
-         title="Shift Left", year="2022 – today", medium="GitLab CI/CD, Docker, security scanners",
-         text="Security checks moved to the start of the release process, where problems are cheap. "
-              "Note how each bar has moved left.",
-         note="Occasionally blocks a Friday deploy. This is considered a feature.",
-         credit="Commissioned by Veridas, DevOps engineer since March 2022."),
-    dict(kind="work", art="modules", eyebrow="Room 1 · The day job", no="Cat. 02",
-         title="Everything as Code", year="2022 – today", medium="Terraform, AWS, a little GCP, pull requests",
-         text="Infrastructure that only changes through pull requests: lint, validate, deploy. "
-              "Reusable modules, checked by testing.",
-         note="Manual changes in the cloud console are treated as vandalism.",
-         credit="Commissioned by Veridas."),
-    dict(kind="work", art="stars", eyebrow="Room 2 · The night shift", no="Cat. 06",
-         title="SpaceWar", year="2019", medium="Java",
-         text="A space shooter. What hangs here is a portrait; the original is playable online.",
-         note="Highest score, held by the artist: 2,147,483,647. Unverified.",
-         credit="Also on display: TLMgram, livEvent, 100tipy, OSniffy."),
-    dict(kind="materials"),
-    dict(kind="exit"),
-]
-
-MATERIALS = ["AWS", "GCP", "Terraform", "GitLab CI/CD", "GitHub Actions",
-             "Docker", "Linux", "Rust", "Python", "Java"]
-
-
-def esc(s: str) -> str:
-    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+def load_content(path: Path = CONTENT_FILE) -> dict:
+    with path.open(encoding="utf-8") as source:
+        content = yaml.safe_load(source)
+    if not isinstance(content, dict) or not isinstance(content.get("site"), dict):
+        raise ValueError("content.yml must define a site mapping")
+    required_site = {"collection", "name", "period", "role", "url", "visit_hours", "intro", "exit_note"}
+    missing_site = required_site - content["site"].keys()
+    if missing_site:
+        raise ValueError(f"site is missing: {', '.join(sorted(missing_site))}")
+    slides = content.get("slides")
+    if not isinstance(slides, list) or not slides:
+        raise ValueError("content.yml must define at least one slide")
+    valid_kinds = {"entrance", "work", "materials", "exit"}
+    for slide in slides:
+        if not isinstance(slide, dict) or slide.get("kind") not in valid_kinds:
+            raise ValueError(f"slide kind must be one of {sorted(valid_kinds)}")
+        if slide["kind"] == "work":
+            required = {"art", "eyebrow", "no", "title", "year", "medium", "text", "note", "credit"}
+            missing = required - slide.keys()
+            if missing:
+                raise ValueError(f"work slide is missing: {', '.join(sorted(missing))}")
+            if slide["art"] not in ART:
+                raise ValueError(f"unknown artwork: {slide['art']}")
+    if not isinstance(content.get("materials"), list):
+        raise ValueError("content.yml must define materials as a list")
+    return content
 
 
-def slide_html(s: dict, n: int, total: int) -> str:
+def esc(s: object) -> str:
+    return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def slide_html(s: dict, n: int, total: int, content: dict) -> str:
+    site = content["site"]
+    materials = content["materials"]
     counter = f'<span>{n} / {total}</span>'
     if s["kind"] == "entrance":
         return f"""<div class="slide">
   <div class="frame entrance-frame">{PING}</div>
   <div class="label">
-    <p class="top"><span>The Lassa Collection</span>{counter}</p>
-    <h1 class="serif">Fermin Lassa</h1>
-    <p class="sub serif"><em>Selected Works, 2019 – today</em></p>
-    <p class="text">An exhibition of systems built, broken and repaired by a DevOps engineer in Spain.
-    Most of the works still run. Some of them should not.</p>
+    <p class="top"><span>{esc(site["collection"])}</span>{counter}</p>
+    <h1 class="serif">{esc(site["name"])}</h1>
+    <p class="sub serif"><em>Selected Works, {esc(site["period"])}</em></p>
+    <p class="text">{esc(site["intro"])}</p>
   </div>
 </div>"""
     if s["kind"] == "materials":
-        items = "".join(f"<li>{esc(m)}</li>" for m in MATERIALS)
+        items = "".join(f"<li>{esc(m)}</li>" for m in materials)
         return f"""<div class="slide">
   <div class="frame placard-frame"><div class="placard"><p class="eyebrow">Wall text</p>
     <p class="serif placard-title"><em>Materials used in this collection</em></p></div></div>
@@ -114,9 +118,9 @@ def slide_html(s: dict, n: int, total: int) -> str:
   <div class="label">
     <p class="top"><span>Exit · Gift shop</span>{counter}</p>
     <h2 class="serif">Plan your visit</h2>
-    <p class="text">The full collection is open at <b>fermin.lassa.es</b>.<br/>
-    Monday – Friday, 9:00 – 17:00 (Madrid time). Admission free.</p>
-    <p class="note"><b>Note.</b> There is no Room 3. Please do not try the door.</p>
+    <p class="text">The full collection is open at <b>{esc(site["url"].removeprefix("https://"))}</b>.<br/>
+    {esc(site["visit_hours"])}. Admission free.</p>
+    <p class="note"><b>Note.</b> {esc(site["exit_note"])}</p>
   </div>
 </div>"""
     return f"""<div class="slide">
@@ -161,11 +165,13 @@ def font_face(family: str, file: str, style: str, weight: int, text: str) -> str
 
 
 def build(theme: str) -> str:
+    content = load_content()
     t = THEMES[theme]
-    slides = [slide_html(s, i + 1, len(SLIDES)) for i, s in enumerate(SLIDES)]
+    slide_data = content["slides"]
+    slides = [slide_html(s, i + 1, len(slide_data), content) for i, s in enumerate(slide_data)]
     slides.append(slides[0])  # seamless loop
     body = "\n".join(slides)
-    frames, total = keyframes(len(SLIDES))
+    frames, total = keyframes(len(slide_data))
     charset = "".join(chr(c) for c in range(0x20, 0x7F)) + "’‘“”–—·→éíáóúñ×"
     fonts = "\n".join([
         font_face("Instrument Serif", "instrument-serif-latin-400-normal.woff2", "normal", 400, charset),
@@ -179,7 +185,7 @@ def build(theme: str) -> str:
 * {{ box-sizing: border-box; margin: 0; padding: 0; }}
 .root {{ width: {W}px; height: {H}px; overflow: hidden; border-radius: 14px; background: {t['wall']}; color: {t['ink']};
   font-family: 'Work Sans', 'Helvetica Neue', Arial, sans-serif; font-size: 13px; line-height: 1.5; }}
-.slides {{ display: flex; width: {W * (len(SLIDES) + 1)}px; height: {H}px; animation: walk {total:.1f}s infinite; }}
+.slides {{ display: flex; width: {W * (len(slide_data) + 1)}px; height: {H}px; animation: walk {total:.1f}s infinite; }}
 {frames}
 .slide {{ width: {W}px; height: {H}px; flex-shrink: 0; display: flex; }}
 .serif {{ font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; }}
@@ -229,10 +235,10 @@ h2.serif {{ font-size: 40px; line-height: 1; }}
 .band {{ left: 2px; top: 25px; width: 42px; height: 4px; background: #1A1A1A; }}
 .lens {{ top: 20px; width: 12px; height: 12px; border-radius: 50%; background: #CFE3EA; border: 2px solid #1A1A1A; }}
 .lens.l {{ left: 10px; }} .lens.r {{ left: 22px; }}
-{peek_keyframes(total)}
+{peek_keyframes(total, len(slide_data))}
 """
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">
-<title>The Lassa Collection — Fermin Lassa, DevOps engineer. Selected works, 2019 – today.</title>
+<title>{esc(content["site"]["collection"])} — {esc(content["site"]["name"])}, {esc(content["site"]["role"])}. Selected works, {esc(content["site"]["period"])}.</title>
 <foreignObject width="{W}" height="{H}">
 <div xmlns="http://www.w3.org/1999/xhtml" class="root">
 <style>{css}</style>
@@ -245,10 +251,10 @@ h2.serif {{ font-size: 40px; line-height: 1; }}
 """
 
 
-def peek_keyframes(total: float) -> str:
+def peek_keyframes(total: float, slide_count: int) -> str:
     # The artist only peeks while the exit slide is showing.
     seg = HOLD + MOVE
-    start = (len(SLIDES) - 1) * seg
+    start = (slide_count - 1) * seg
     p = lambda s: f"{(start + s) / total * 100:.3f}%"
     return ("@keyframes peek { "
             f"0%, {p(0.9)} {{ transform: translateX(-100%); }} "
