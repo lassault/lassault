@@ -1,0 +1,10 @@
+[tools]
+python = "3.15"
+
+[tasks.install]
+description = "Install dependencies"
+run = "pip install fonttools brotli"
+
+[tasks.build]
+description = "Build the SVG files"
+run = "python3 build.py"
